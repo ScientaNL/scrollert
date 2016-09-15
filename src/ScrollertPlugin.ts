@@ -38,7 +38,7 @@ module Scrollert {
 
         private static eventNamespaceId = 0;
 
-        private scrollbarElms:{ [id: string] : JQuery; } = {
+        private scrollbarElms:{ [id: string] : ScrollbarContainer } = {
             x: null,
             y: null
         };
@@ -83,7 +83,7 @@ module Scrollert {
 
             for(let axis of this.options.axes)
             {
-                this.initAxis(axis);
+                this.updateAxis(axis);
                 if(this.getValue(this.contentElm, "scrollPos", axis) !== 0) repositionTrack = true;
             }
 
@@ -189,7 +189,7 @@ module Scrollert {
             this.contentElm.css(cssValues);
         };
 
-        private initAxis(axis:AxisType)
+        private updateAxis(axis:AxisType)
         {
             let hasScroll = this.hasScroll(axis);
             if(hasScroll === true && this.scrollbarElms[axis] === null)
@@ -200,19 +200,25 @@ module Scrollert {
                     scrollbarElm = elms.scrollbar,
                     trackElm = elms.track;
 
-                this.resizeTrack(axis, scrollbarElm, trackElm);
-
                 scrollbarElm.on('mousedown.' + axis + '.' + this.options.eventNamespace, this.onScrollbarMousedown.bind(this, axis, scrollbarElm, trackElm));
                 this.contentElm.on('scroll.' + axis + '.' + this.options.eventNamespace, this.onScroll.bind(this, axis, scrollbarElm, trackElm));
 
-                this.scrollbarElms[axis] = scrollbarElm;
+                this.scrollbarElms[axis] = elms;
             }
             else if(hasScroll === false && this.scrollbarElms[axis] !== null)
             {
                 this.containerElm.removeClass(this.options.cssPrefix + "-axis-" + axis);
 
-                this.scrollbarElms[axis].remove();
+                this.scrollbarElms[axis].scrollbar.remove();
+                this.scrollbarElms[axis] = null;
+
                 this.contentElm.off('.' + axis + "." + this.options.eventNamespace );
+            }
+
+            //Resize track according to current scroll dimensions
+            if(this.scrollbarElms[axis] !== null)
+            {
+                this.resizeTrack(axis, this.scrollbarElms[axis].scrollbar, this.scrollbarElms[axis].track);
             }
         }
 
@@ -338,9 +344,10 @@ module Scrollert {
 
             for(let axis in this.scrollbarElms)
             {
-                if(this.scrollbarElms.hasOwnProperty(axis) === true && this.scrollbarElms[axis] instanceof jQuery === true)
+                if(this.scrollbarElms.hasOwnProperty(axis) === true && this.scrollbarElms[axis].scrollbar instanceof jQuery === true)
                 {
-                    this.scrollbarElms[axis].remove();
+                    this.scrollbarElms[axis].scrollbar.remove();
+                    this.scrollbarElms[axis] = null;
                 }
             }
 
