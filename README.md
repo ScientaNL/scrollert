@@ -96,8 +96,14 @@ Not implemented yet.
 
 # FAQ
 <sup>frequently asked and less frequently asked, but still answered:</sup>
+## How do I customize Scrollert.js?
+You can customize the looks of Scrollert.js by styling it using CSS.
+
 ## Why must I specify a tabindex on the content element?
 Good question. I forgot while developing. There really is a reason for that. When it comes to mind, I will update this question
 
 ## Why is this plugin created? There are already so many javascript scrollbar plugins
-Syslogic is the maker of Scienta. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs. 
+Syslogic is the maker of Scienta. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs.
+ 
+ # Build it yourself
+ You don't have to stick to the shipped build. Why not build it yourself? You can run `npm install` and `gulp build` to create a customized build.
