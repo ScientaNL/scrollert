@@ -4,6 +4,8 @@
     @size: 12px;
     @min-track-size: 5%;
     @xy-intersection-offset: @offset + 20px;
+    @scrollbar-color: black;
+    @track-color: black;
 
     position: relative;
     overflow: hidden;
@@ -29,31 +31,26 @@
         }
     }
 
-    &:hover > .scrollert-scrollbar
-    {
-        opacity: .5;
-    }
-
     > .scrollert-scrollbar
     {
         position: absolute;
 
-        background: rgba(0,0,0,.1);
+        background: fade(@scrollbar-color, 0%);
         border-radius: @size/2;
         overflow: hidden;
 
-        transition: opacity 500ms;
-        opacity: .0;
+        transition: background 500ms;
 
         &:hover
         {
-            opacity: 1;
+            background: fade(@scrollbar-color, 15%);
         }
 
         > .scrollert-track
         {
             position: absolute;
-            background: rgba(0,0,0,.4);
+            transition: background 500ms;
+            background: fade(@track-color, 20%);
             border-radius: @size/2;
         }
 
@@ -106,14 +103,26 @@
         }
     }
 
-    &.scrollert-trackdrag-x > .scrollert-scrollbar-x
+    //Hover behaviour
+    &:hover > .scrollert-scrollbar
     {
-        opacity: 1;
+        background: fade(@scrollbar-color, 5%);
+
+        > .scrollert-track
+        {
+            background: fade(@track-color, 40%);
+        }
     }
 
-    &.scrollert-trackdrag-y > .scrollert-scrollbar-y
+    &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
+    &.scrollert-trackdrag-x > .scrollert-scrollbar-x
     {
-        opacity: 1;
+        background: fade(@scrollbar-color, 15%);
+
+        > .scrollert-track
+        {
+            background: fade(@track-color, 40%);
+        }
     }
 }
 

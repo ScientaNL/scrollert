@@ -1,7 +1,7 @@
-# Scrollert.js - a cross browser, OSX-like, light weight scrollbar.
+# Scrollert.js - a cross browser, OSX-like, light weight scrollbar
 Scrollert.js is a jQuery plugin that implements uniform scrollbars on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both **horizontal** and **vertical** scrollbars. 
 
-Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with your Module loader (SystemJS, RequireJS, Webpack etc) or by loading it globally with a `<script>` tag.
+Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with your Module loader of choice (SystemJS, RequireJS, Webpack etc) or by loading it globally with a `<script>` tag.
 
 Scrollert.js.js is written in Typescript and LESS.
 
