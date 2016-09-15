@@ -22,7 +22,7 @@ module Scrollert
                 curElm = document.createElement(container.tagName);
                 curElm.className = container.classes;
 
-                (prevElm) ? prevElm.append(curElm ) : rootElm = curElm;
+                (prevElm) ? prevElm.appendChild(curElm ) : rootElm = curElm;
                 prevElm = curElm ;
             }
 

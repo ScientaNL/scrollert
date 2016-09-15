@@ -62,7 +62,7 @@ module Scrollert {
 
             if(this.options.preventOuterScroll === true)
             {
-                // Prevent outer scroll while scrolling the contentElm
+                // Prevent outer scroll while trackdrag the contentElm
                 this.contentElm.on('wheel.' + this.options.eventNamespace, this.onScrollWheel);
 
                 /*
@@ -167,27 +167,58 @@ module Scrollert {
         private offsetContentElmScrollbars = (force:boolean = false) => {
 
             let scrollbarDimension = ScrollbarDimensions.calculate([
-                { tagName: this.containerElm.prop('tagName'), classes: this.containerElm.prop('class') },
-                { tagName: this.contentElm.prop('tagName'), classes: this.contentElm.prop('class') }
-            ]);
+                    { tagName: this.containerElm.prop('tagName'), classes: this.containerElm.prop('class') },
+                    { tagName: this.contentElm.prop('tagName'), classes: this.contentElm.prop('class') }
+                ]),
+                correctForFloatingScrollbar = false;
+
+            if(scrollbarDimension === 0 && this.hasVisibleFloatingScrollbar() === true)
+            {
+                correctForFloatingScrollbar = true;
+                scrollbarDimension = 20;
+            }
 
             let cssValues = {};
             if(this.options.axes.indexOf('y') !== -1)
             {
                 cssValues['overflow-y'] = "scroll";
                 if(scrollbarDimension) cssValues['right'] = -scrollbarDimension + "px";
+                if(correctForFloatingScrollbar) cssValues['padding-right'] = false;
             }
 
             if(this.options.axes.indexOf('x') !== -1)
             {
                 cssValues['overflow-x'] = "scroll";
                 if(scrollbarDimension) cssValues['bottom'] = -scrollbarDimension + "px";
+                if(correctForFloatingScrollbar) cssValues['padding-bottom'] = false;
             }
 
             if(!this.originalCssValues) this.originalCssValues = this.contentElm.css(Object.keys(cssValues));
 
+            if(correctForFloatingScrollbar && cssValues['padding-right'] === false)
+            {
+                cssValues['padding-right'] = (parseInt(this.originalCssValues['padding-right']) + scrollbarDimension) + "px";
+            }
+
+            if(correctForFloatingScrollbar && cssValues['padding-bottom'] === false)
+            {
+                cssValues['padding-bottom'] = (parseInt(this.originalCssValues['padding-bottom']) + scrollbarDimension) + "px";
+            }
+
             this.contentElm.css(cssValues);
         };
+
+        /**
+         * Scrollbars by default in OSX don't take up space but are floating. We must correct for this, but how do we
+         * know if we must correct? Webkit based browsers have the pseudo css-selector ::-webkit-scrollbar by which the
+         * problem is solved. For all other engines another strategy must
+         *
+         * @returns {boolean}
+         */
+        private hasVisibleFloatingScrollbar():boolean
+        {
+            return window.navigator.userAgent.match(/AppleWebKit/i) === null;
+        }
 
         private updateAxis(axis:AxisType)
         {
@@ -311,9 +342,15 @@ module Scrollert {
                 $window = jQuery(window),
                 moveHandler = this.onTrackDrag.bind(this, axis, origin);
 
+            this.containerElm.addClass(this.options.cssPrefix + "-trackdrag-" + axis);
+
             $window
                 .on('mousemove.' + this.options.eventNamespace, moveHandler)
-                .one('mouseup.' + this.options.eventNamespace, () => {$window.off('mousemove', moveHandler)});
+                .one('mouseup.' + this.options.eventNamespace, () => {
+
+                    $window.off('mousemove', moveHandler);
+                    this.containerElm.removeClass(this.options.cssPrefix + "-trackdrag-" + axis);
+                });
         }
 
         private onTrackDrag(axis:AxisType, origin, event:MouseEvent) {
@@ -344,7 +381,7 @@ module Scrollert {
 
             for(let axis in this.scrollbarElms)
             {
-                if(this.scrollbarElms.hasOwnProperty(axis) === true && this.scrollbarElms[axis].scrollbar instanceof jQuery === true)
+                if(this.scrollbarElms[axis] && this.scrollbarElms[axis].scrollbar instanceof jQuery === true)
                 {
                     this.scrollbarElms[axis].scrollbar.remove();
                     this.scrollbarElms[axis] = null;
