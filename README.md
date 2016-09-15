@@ -44,14 +44,14 @@ Specify to which axis or axes Scrollert.js must listen. Gives horizontal and/or 
 
 **Type:** array
 
-**Default:** ['x', 'y']
+**Default:** `['x', 'y']`
 
 ### preventOuterScroll
 Prevents scrolling of parent elements while hovering a scrollert pane.
 
 **Type:** boolean
 
-**Default:** false
+**Default:** `false`
 
 ### cssPrefix
 The prefix which is prepended to all css-classes.
@@ -59,7 +59,7 @@ The prefix which is prepended to all css-classes.
 
 **Type:** string
 
-**Default:** 'scrollert'
+**Default:** `scrollert`
 
 ### eventNamespace
 The namespace in which all events are added. There is not really a use case to override this, but it is still possible though.
@@ -67,7 +67,7 @@ The namespace in which all events are added. There is not really a use case to o
 
 **Type:** string
 
-**Default:** 'scrollert'
+**Default:** `scrollert`
 
 ### contentSelector
 Specify a custom content selector. By default the cssPrefix option is used to get the content child out of Scroller's container element. (Default: `.scrollert-content`). If you want to use a custom selector for your content element, you can specify the selector to let Scrollert.js know where to look for the content element. The selector must be a valid `jQuery/sizzle` selector.
@@ -75,7 +75,7 @@ Specify a custom content selector. By default the cssPrefix option is used to ge
 
 **Type:** string
 
-**Default:** null
+**Default:** `null`
 
 ## Methods
 The following methods can be called after scrollert is initialized:
