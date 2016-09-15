@@ -1,0 +1,123 @@
+.scrollert
+{
+    position: relative;
+    width: 400px;
+    height: 500px;
+
+    border: 1px solid red;
+    overflow: hidden;
+}
+
+.scrollert > .scrollert-content
+{
+    position: absolute;
+    overflow: hidden;
+    box-sizing: content-box;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.scrollert > .scrollert-content:focus
+{
+    outline: none;
+}
+
+/*.scrollert > .scrollert-content::-webkit-scrollbar*/
+/*{*/
+    /*display: none;*/
+/*}*/
+
+.scrollert:hover > .scrollert-scrollbar-y
+{
+    opacity: .5;
+}
+
+.scrollert > .scrollert-scrollbar-y.hidden,
+.scrollert > .scrollert-scrollbar-x.hidden
+{
+    display: none;
+}
+
+.scrollert > .scrollert-scrollbar-y
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    width: 12px;
+
+    background: rgba(0,0,0,.1);
+    border-radius: 10px;
+    overflow: hidden;
+
+    opacity: .0;
+
+    transition: opacity 500ms;
+}
+
+.scrollert > .scrollert-scrollbar-y:hover
+{
+    opacity: 1;
+}
+
+.scrollert > .scrollert-scrollbar-y > .scrollert-track
+{
+    position: absolute;
+    top: 0;
+    height: 0;
+    width: 100%;
+
+    background: rgba(0,0,0,.4);
+    border-radius: 10px;
+
+    min-height: 5%;
+}
+
+.scrollert > .scrollert-scrollbar-x
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 12px;
+
+    background: rgba(0,0,0,.3);
+    border-radius: 10px;
+    overflow: hidden;
+
+    opacity: .5;
+
+    transition: opacity 500ms;
+}
+
+.scrollert > .scrollert-scrollbar-x:hover
+{
+    opacity: 1;
+}
+
+.scrollert > .scrollert-scrollbar-x > .scrollert-track
+{
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 100%;
+
+    background: rgba(0,0,0,.3);
+    border-radius: 10px;
+
+    min-width: 5%;
+}
+
+.scrollert.scrollert-xy > .scrollert-scrollbar-y
+{
+    bottom: 30px;
+    top: 30px;
+}
+
+.scrollert.scrollert-xy > .scrollert-scrollbar-x
+{
+    right: 30px;
+    left: 30px;
+}
