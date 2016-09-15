@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dit is de scrolllert</title>
+    <link rel="stylesheet" href="dist/scrollert.min.css" />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+</head>
+<body>
+    <div class="scrollert scrollert-xy" style="width: 400px;height: 500px;border: 1px solid red;">
+        <div class="scrollert-content" tabindex="1" style="padding: 100px">
+            <p>ContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContend</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <button id="dinges0">init</button>
+            <button id="dinges1">content add</button>
+            <button id="dinges2">content remove</button>
+            <button id="dinges3">content small</button>
+            <button id="dinges4">destroy</button>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+            <p>Content<br />ContentContent</p>
+        </div>
+    </div>
+    <script src="dist/scrollert.min.js"></script>
+    <script type="application/javascript">
+        $('.scrollert').scrollert();
+
+
+        $('#dinges0').on('click', function() {
+            $('.scrollert').scrollert({axes: ['y', 'x'], 'contentSelector': '.scrollert-content'});
+        })
+
+        $('#dinges1').on('click', function() {
+            $('.scrollert-content').append(
+                    $('<p>').text('HierkomteenhelelangezinHierkomteenhelelangezinHierkomteenhelelangezin')
+            );
+
+            $('.scrollert').scrollert('update');
+        })
+
+        $('#dinges2').on('click', function() {
+            $('.scrollert p').remove();
+            $('.scrollert').scrollert('update');
+        });
+
+        $('#dinges3').on('click', function() {
+            $('.scrollert-content').append(
+                    $('.scrollert-content p').text('Ik kom hier')
+            );
+
+            $('.scrollert').scrollert('update');
+        })
+
+        $('#dinges4').on('click', function() {
+            $('.scrollert').scrollert('destroy');
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+doctype html
+html
+	include parts/head
+	body
+		div(class="scrollert" style="width: 100%; height: 100%")
+			div(class="scrollert-content")
+				div(class="mdl-grid")
+					div(class="mdl-cell mdl-cell--12-col")
+						include parts/header
+					div(class="mdl-cell mdl-cell--12-col")
+						a(name="features")
+						h2(class="mdl-color-text--primary") Features
+
+					div(class="mdl-cell mdl-cell--9-col")
+						include parts/features/both
+						include parts/features/horizontal
+
+					div(class="mdl-cell mdl-cell--3-col")
+						include parts/features/vertical
+					div(class="mdl-cell mdl-cell--9-col")
+
+					div(class="mdl-cell mdl-cell--12-col")
+						a(name="demos")
+						h2(class="mdl-color-text--primary") Demos
+						div(style="height: 2000px;")
+
+				include parts/footer
+		script(src="scrollert.min.js")
+		script.
+			$('.scrollert').scrollert();
+
