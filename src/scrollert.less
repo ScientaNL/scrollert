@@ -1,0 +1,109 @@
+.scrollert
+{
+    @offset: 8px;
+    @size: 12px;
+    @min-track-size: 5%;
+    @xy-intersection-offset: @offset + 20px;
+
+    position: relative;
+    overflow: hidden;
+
+    > .scrollert-content
+    {
+        position: absolute;
+        overflow: hidden;
+        box-sizing: content-box;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        &:focus
+        {
+            outline: none;
+        }
+
+        &::-webkit-scrollbar
+        {
+            display: none;
+        }
+    }
+
+    &:hover > .scrollert-scrollbar
+    {
+        opacity: .5;
+    }
+
+    > .scrollert-scrollbar
+    {
+        position: absolute;
+
+        background: rgba(0,0,0,.1);
+        border-radius: @size/2;
+        overflow: hidden;
+
+        transition: opacity 500ms;
+        opacity: .0;
+
+        &:hover
+        {
+            opacity: 1;
+        }
+
+        > .scrollert-track
+        {
+            position: absolute;
+            background: rgba(0,0,0,.4);
+            border-radius: @size/2;
+        }
+
+        &-y
+        {
+            top: @offset;
+            bottom: @offset;
+            right: @offset;
+            width: @size;
+
+            > .scrollert-track
+            {
+                top: 0;
+                height: 0;
+                width: 100%;
+                min-height: @min-track-size;
+            }
+        }
+
+        &-x
+        {
+            left: @offset;
+            right: @offset;
+            bottom: @offset;
+            height: @size;
+
+            > .scrollert-track
+            {
+                left: 0;
+                width: 0;
+                height: 100%;
+                min-width: @min-track-size;
+            }
+        }
+    }
+
+    //Both scrollbars are available
+    &.scrollert-axis-x.scrollert-axis-y
+    {
+        > .scrollert-scrollbar-y
+        {
+            bottom: @xy-intersection-offset;
+            top: @offset;
+        }
+
+        > .scrollert-scrollbar-x
+        {
+            right: @xy-intersection-offset;
+            left: @offset;
+        }
+    }
+}
+

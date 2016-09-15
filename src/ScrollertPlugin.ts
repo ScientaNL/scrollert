@@ -99,8 +99,10 @@ module Scrollert {
             let scrollbarElm, trackElm;
 
             containerElm.append(
-                scrollbarElm = jQuery('<div />').addClass(this.options.cssPrefix + '-scrollbar-' + axis)
-                    .append(trackElm = jQuery('<div />').addClass(this.options.cssPrefix + '-track'))
+                scrollbarElm = jQuery('<div />').addClass(
+                    this.options.cssPrefix + '-scrollbar' + ' '
+                    + this.options.cssPrefix + '-scrollbar-' + axis
+                ).append(trackElm = jQuery('<div />').addClass(this.options.cssPrefix + '-track'))
             );
 
             return {
@@ -192,6 +194,8 @@ module Scrollert {
             let hasScroll = this.hasScroll(axis);
             if(hasScroll === true && this.scrollbarElms[axis] === null)
             {
+                this.containerElm.addClass(this.options.cssPrefix + "-axis-" + axis);
+
                 let elms = this.addScrollbar(axis, this.containerElm),
                     scrollbarElm = elms.scrollbar,
                     trackElm = elms.track;
@@ -205,6 +209,8 @@ module Scrollert {
             }
             else if(hasScroll === false && this.scrollbarElms[axis] !== null)
             {
+                this.containerElm.removeClass(this.options.cssPrefix + "-axis-" + axis);
+
                 this.scrollbarElms[axis].remove();
                 this.contentElm.off('.' + axis + "." + this.options.eventNamespace );
             }
@@ -229,8 +235,6 @@ module Scrollert {
         {
             let contentSize = this.getValue(this.contentElm, 'size', axis),
                 contentScrollSize = this.getValue(this.contentElm, 'scrollSize', axis);
-
-            console.log(contentSize, contentScrollSize)
     
             return contentSize < contentScrollSize;
         }
