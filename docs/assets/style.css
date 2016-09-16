@@ -26,7 +26,7 @@ h2 {
   margin-top: 2em;
 }
 .card-header .mdl-card__title {
-  background: url('../img/header3.png');
+  background: url('img/header3.png');
   height: 300px;
 }
 .card-header .mdl-card__title h1 {

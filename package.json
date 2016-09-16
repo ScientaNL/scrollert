@@ -17,7 +17,11 @@
     "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-rename": "^1.2.2",
-    "gulp-wrapper": "^1.0.0"
+    "gulp-wrapper": "^1.0.0",
+    "del": "^2.2.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-static-site-generator": "^1.0.2",
+    "gulp-if": "^2.0.1"
   },
   "scripts": {
     "build": "gulp build"
