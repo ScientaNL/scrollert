@@ -1,9 +1,11 @@
 # Scrollert.js - a cross browser, OSX-like, light weight scrollbar
-Scrollert.js is a jQuery plugin that implements uniform scrollbars on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both **horizontal** and **vertical** scrollbars. 
+[Scrollert.js](https://syslogicnl.github.io/scrollert/) is a jQuery plugin that implements **good-looking and uniform scrollbars** on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both **horizontal** and **vertical** scrollbars. 
 
 Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with your Module loader of choice (SystemJS, RequireJS, Webpack etc) or by loading it globally with a `<script>` tag.
 
-Scrollert.js.js is written in Typescript and LESS.
+Scrollert.js is written in Typescript and LESS.
+
+Checkout our [website](https://syslogicnl.github.io/scrollert/) and the [Github repository](https://github.com/SyslogicNL/scrollert)!
 
 # Support and compatibility
 Scrollert.js is thoroughly field tested and is compatible with:
@@ -22,13 +24,26 @@ Embed the `scrollert.min.js` and `scrollert.min.css` in your HTML page.
 	</div>
 </div>
 
-<!-- Somewhere below before body close -->
+<!-- Somewhere below in your HTML, before body close -->
 <script type="application/javascript">
 	$('.scrollert').scrollert();
 </script>
 ```
 
 # Advanced usage
+## Default styling
+Scrollert.js ships with two scrollbar styles, the default gray style and a white style. Use the white style by adding `scrollert-white` as class to the container element.  
+ 
+```html
+<div class="scrollert scrollert-white">
+	<div class="scrollert-content" tabindex="1">
+		{your content here}
+	</div>
+</div>
+```
+## Custom styling
+When the default styling does not fit your needs, you can fully customize the scrollbars with CSS.
+
 ## Options
 It is possible to bootstrap a Scrollert.js instance with the following options:
 
