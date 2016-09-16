@@ -8,18 +8,8 @@ html
                     div(class="mdl-cell mdl-cell--12-col")
                         div(class="card-header mdl-card mdl-shadow--1dp")
                             include parts/header
-
-                        h2(class="mdl-color-text--primary") API documentation
                         div(class="card-header mdl-card mdl-shadow--1dp")
                             block contents
                                 | !{contents}
-
-                    div(class="mdl-cell mdl-cell--9-col")
-                        h2(class="mdl-color-text--primary") Demos
-                        include parts/features/both
-                        include parts/features/horizontal
-
-                    div(class="mdl-cell mdl-cell--3-col")
-                        include parts/features/vertical
 
                 include parts/footer

@@ -47,22 +47,15 @@ gulp.task('less', function() {
 });
 
 gulp.task('generate-docs', ['clean-docs'], function() {
-    return gulp.src(['build/docs/site/**/*', '*.md', "dist/*.min.*"])
+    return gulp.src(['build/docs/site/**/*', "dist/*.min.*"])
         .pipe(debug())
-        .pipe(rename(function(path) {
-
-            //Tuple Github's landing README.md as into the index of the docs-website
-            if(path.basename === "README" && path.extname === ".md")
-            {
-                path.basename = "index";
-            }
-        }))
         .pipe(staticSiteGenerator({
             defaultLayout: 'base.jade',
             layoutPath: 'build/docs/layouts',
             jadeOptions: {
                 pretty: true
-            }
+            },
+            prettyUrls: false
         }))
         .pipe(gulpif(/\.less$/, less()))
         .pipe(gulp.dest('docs'));
