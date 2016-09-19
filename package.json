@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/npm.git"
+    "url": "https://github.com/SyslogicNL/scrollert.git"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
