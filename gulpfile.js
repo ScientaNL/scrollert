@@ -22,6 +22,7 @@ gulp.task('typescript', function() {
 	if(jsWrapper.length !== 2) throw new TypeError("Invalid wrapper template specified");
 
 	return tsProject.src("src/index.ts")
+		.pipe(debug({title: "[typescript]"}))
 		.pipe(sourcemaps.init())
 		.pipe(ts(tsProject))
 		.pipe(concat("scrollert.js"))
@@ -36,6 +37,7 @@ gulp.task('typescript', function() {
 gulp.task('less', function() {
 
 	return gulp.src("src/scrollert.less")
+		.pipe(debug({title: "[less]"}))
 		.pipe(sourcemaps.init())
 		.pipe(less())
 		.pipe(autoprefixer())
@@ -48,7 +50,7 @@ gulp.task('less', function() {
 
 gulp.task('generate-docs', ['clean-docs'], function() {
     return gulp.src(['build/docs/site/**/*', "dist/*.min.*"])
-        .pipe(debug())
+		.pipe(debug({title: "[generate-docs]"}))
         .pipe(staticSiteGenerator({
             defaultLayout: 'base.jade',
             layoutPath: 'build/docs/layouts',
