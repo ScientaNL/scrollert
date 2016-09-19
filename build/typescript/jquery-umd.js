@@ -26,4 +26,6 @@
 	}
 }(function (jQuery) {
 	/** {CODE} */
+
+	return jQuery;
 }));
