@@ -72,6 +72,7 @@ gulp.task('clean-docs', function(done) {
 gulp.task('watch', function() {
 	gulp.watch("src/*.ts", ['typescript']);
 	gulp.watch("src/*.less", ['less']);
+	gulp.watch("build/docs/**/*.jade", ['generate-docs']);
 });
 
 gulp.task('build', ['typescript', 'less', 'generate-docs']);

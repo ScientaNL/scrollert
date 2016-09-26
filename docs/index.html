@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="scrollert.min.css">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/themes/default.css">
+    <link rel="stylesheet" href="assets/highlight.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="scrollert.min.js"></script>
@@ -26,11 +27,63 @@
                   </div>
                 </div>
               </div>
-              <div class="mdl-card__actions mdl-card--border"><a href="#features" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Features</a><a href="#demos" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Demos</a><a href="https://github.com/SyslogicNL/scrollert" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">View on Github</a></div>
+              <div class="card-about mdl-card__actions mdl-card--supporting_text">
+                <p>
+                  Scrollert.js is a jQuery plugin that implements good-looking and uniform scrollbars on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both horizontal and vertical scrollbars.
+                  
+                </p>
+              </div>
+              <div class="mdl-card__actions mdl-card--border"><a href="#features" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Features</a><a href="#documentation" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Documentation</a><a href="#demos" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Demos</a><a href="https://github.com/SyslogicNL/scrollert" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">View on Github</a></div>
               <div class="mdl-card__menu"><a href="https://github.com/SyslogicNL/scrollert" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><img src="./assets/img/github.png" title="View on github"></a></div>
             </div>
-            <div class="card-header mdl-card mdl-shadow--1dp">
-<h2 class="mdl-color-text--primary">API documentation</h2><h1 id="scrollert-js-a-cross-browser-osx-like-light-weight-scrollbar">Scrollert.js - a cross browser, OSX-like, light weight scrollbar</h1>
+          </div>
+<div class="mdl-cell mdl-cell--12-col"><a name="features">
+    <h2 class="mdl-color-text--primary">Features</h2></a></div>
+<div class="mdl-cell mdl-cell--8-col">
+  <div class=" mdl-card mdl-shadow--2dp">
+    <div style="height: 400px; padding:0;" class="mdl-card__title mdl-color--primary mdl-color-text--white mdl-card--expand">
+      <div style="width: 100%; height: 100%" class="scrollert">
+        <div tabindex="1" class="scrollert-content">
+          <div style="width:200%; height: 100%;">
+            <h2 style="width:50%; float:left; line-height: 400px;">Scrolling</h2>
+            <h2 style="width:50%; float:left; line-height: 400px;">Scrolling</h2>
+            <h2 style="width:50%; float:left; line-height: 400px;">Scrolling</h2>
+            <h2 style="width:50%; float:left; line-height: 400px;">Scrolling</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 18px; " class=" mdl-card mdl-shadow--2dp">
+    <div style="height: 200px; padding:0;" class="mdl-card__title mdl-color--primary mdl-color-text--white mdl-card--expand">
+      <div style="width: 100%; height: 100%" class="scrollert">
+        <div tabindex="1" class="scrollert-content">
+          <div style="width:200%">
+            <h2 style="width:50%; float:left; height: 200px; line-height:200px;">Horizontal</h2>
+            <h2 style="width:50%; float:left;height: 200px; line-height:200px;">Horizontal</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mdl-cell mdl-cell--4-col">
+  <div class=" mdl-card mdl-shadow--2dp">
+    <div style="height: 618px; padding:0;" class="mdl-card__title mdl-color--primary mdl-color-text--white mdl-card--expand">
+      <div style="width: 100%; height: 100%" class="scrollert">
+        <div tabindex="1" class="scrollert-content">
+          <h2 style="line-height: 618px;">Vertical</h2>
+          <h2 style="line-height: 618px;">Vertical</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mdl-cell mdl-cell--12-col"><a name="documentation">
+    <h2 class="mdl-color-text--primary">Documentation</h2></a></div>
+<div class="mdl-cell mdl-cell--12-col">
+  <div class="card-documentation mdl-card mdl-shadow--1dp">
+    <div class="mdl-card__supporting-text"><h1 id="scrollert-js-a-cross-browser-osx-like-light-weight-scrollbar">Scrollert.js - a cross browser, OSX-like, light weight scrollbar</h1>
 <p><a href="https://syslogicnl.github.io/scrollert/">Scrollert.js</a> is a jQuery plugin that implements <strong>good-looking and uniform scrollbars</strong> on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both <strong>horizontal</strong> and <strong>vertical</strong> scrollbars. </p>
 <p>Scrollert.js can be loaded as a <a href="https://github.com/umdjs/umd">UMD module</a> with your Module loader of choice (SystemJS, RequireJS, Webpack etc) or by loading it globally with a <code>&lt;script&gt;</code> tag.</p>
 <p>Scrollert.js is written in Typescript and LESS.</p>
@@ -67,7 +120,7 @@
 <h2 id="options">Options</h2>
 <p>It is possible to bootstrap a Scrollert.js instance with the following options:</p>
 <pre><code class="hljs javascript">jQuery(<span class="hljs-string">'.scrollert'</span>).scrollert({
-    axes: [<span class="hljs-string">'y'</span>], 
+    <span class="hljs-attr">axes</span>: [<span class="hljs-string">'y'</span>], 
     <span class="hljs-string">'preventOuterScroll'</span>: <span class="hljs-literal">true</span>
 });</code></pre><h3 id="axes">axes</h3>
 <p>Specify to which axis or axes Scrollert.js must listen. Gives horizontal and/or vertical scrollbars.</p>
@@ -106,8 +159,10 @@
 <h2 id="why-is-this-plugin-created-there-are-already-so-many-javascript-scrollbar-plugins">Why is this plugin created? There are already so many javascript scrollbar plugins</h2>
 <p>Syslogic is the maker of Scienta. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn&#39;t find one that suited our needs. So we decided to build one ourselfs.</p>
 <h1 id="build-it-yourself">Build it yourself</h1>
-<p> You don&#39;t have to stick to the shipped build. Why not build it yourself? You can run <code>npm install</code> and <code>gulp build</code> to create a customized build.</p></div>
-          </div>
+<p> You don&#39;t have to stick to the shipped build. Why not build it yourself? You can run <code>npm install</code> and <code>gulp build</code> to create a customized build.</p>
+    </div>
+  </div>
+</div>
         </div>
         <footer class="mdl-mini-footer">
           <div class="mdl-grid">
@@ -115,8 +170,7 @@
               <div class="mdl-mini-footer__left-section">
                 <div class="mdl-logo mdl-color-text--primary">Scrollert</div>
                 <ul class="mdl-mini-footer__link-list">
-                  <li><a href="#">Heen en weer</a></li>
-                  <li><a href="#">Product by Syslogic</a></li>
+                  <li><a href="http://www.syslogic.nl">Product by Syslogic</a></li>
                 </ul>
               </div>
             </div>
