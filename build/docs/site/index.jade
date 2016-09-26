@@ -1,2 +1,19 @@
-h2(class="mdl-color-text--primary") API documentation
-include:markdown ../../../README.md
+div(class="mdl-cell mdl-cell--12-col")
+    a(name="features")
+        h2(class="mdl-color-text--primary") Features
+
+div(class="mdl-cell mdl-cell--8-col")
+    include ../layouts/parts/features/both
+    include ../layouts/parts/features/horizontal
+
+div(class="mdl-cell mdl-cell--4-col")
+    include ../layouts/parts/features/vertical
+
+div(class="mdl-cell mdl-cell--12-col")
+    a(name="documentation")
+        h2(class="mdl-color-text--primary") Documentation
+
+div(class="mdl-cell mdl-cell--12-col")
+    div(class="card-documentation mdl-card mdl-shadow--1dp")
+        div(class="mdl-card__supporting-text")
+            include:markdown ../../../README.md
