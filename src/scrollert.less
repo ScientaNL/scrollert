@@ -1,11 +1,21 @@
 .scrollert
 {
-    @offset: 8px;
-    @size: 12px;
+    @offset: 4px;
+    @outer-size: 18px;
+    @inner-size: 10px;
+
     @min-track-size: 5%;
     @xy-intersection-offset: @offset + 20px;
+
     @scrollbar-color: black;
     @track-color: black;
+
+    @opacity-default-scrollbar: 0;
+    @opacity-default-track: .15;
+    @opacity-contenthover-scrollbar: .05;
+    @opacity-contenthover-track: .2;
+    @opacity-scrollbarhover-scrollbar: .15;
+    @opacity-scrollbarhover-track: .5;
 
     position: relative;
     overflow: hidden;
@@ -34,24 +44,45 @@
     > .scrollert-scrollbar
     {
         position: absolute;
-
-        background: fade(@scrollbar-color, 0%);
-        border-radius: @size/2;
         overflow: hidden;
 
-        transition: background 500ms;
-
-        &:hover
+        &:before
         {
-            background: fade(@scrollbar-color, 15%);
+            content: '';
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            border-radius: @outer-size/2;
+            background: @scrollbar-color;
+            opacity: @opacity-default-scrollbar;
+
+            transition: opacity 700ms;
         }
 
         > .scrollert-track
         {
             position: absolute;
-            transition: background 500ms;
-            background: fade(@track-color, 20%);
-            border-radius: @size/2;
+
+            &:before
+            {
+                content: '';
+                position: absolute;
+                overflow: hidden;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                border-radius: @outer-size/2;
+                background: @track-color;
+                opacity: @opacity-default-track;
+
+                transition: opacity 700ms;
+            }
         }
 
         &-y
@@ -59,14 +90,20 @@
             top: @offset;
             bottom: @offset;
             right: @offset;
-            width: @size;
+            width: @outer-size;
 
             > .scrollert-track
             {
                 top: 0;
                 height: 0;
-                width: 100%;
+                width: @outer-size;
                 min-height: @min-track-size;
+            }
+
+            &:before, > .scrollert-track:before
+            {
+                width: @inner-size;
+                left: (@outer-size - @inner-size) / 2;
             }
         }
 
@@ -75,14 +112,20 @@
             left: @offset;
             right: @offset;
             bottom: @offset;
-            height: @size;
+            height: @outer-size;
 
             > .scrollert-track
             {
                 left: 0;
                 width: 0;
-                height: 100%;
+                height: @outer-size;
                 min-width: @min-track-size;
+            }
+
+            &:before, > .scrollert-track:before
+            {
+                height: @inner-size;
+                top: (@outer-size - @inner-size) / 2;
             }
         }
     }
@@ -103,26 +146,34 @@
         }
     }
 
+
     //Hover behaviour
     &:hover > .scrollert-scrollbar
     {
-        background: fade(@scrollbar-color, 5%);
-
-        > .scrollert-track
+        //On the content pane
+        &:before
         {
-            background: fade(@track-color, 40%);
+            opacity: @opacity-contenthover-scrollbar;
+        }
+
+        > .scrollert-track:before
+        {
+            opacity: @opacity-contenthover-track;
         }
     }
 
+    > .scrollert-scrollbar:hover,
     &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
     &.scrollert-trackdrag-x > .scrollert-scrollbar-x
     {
-        background: fade(@scrollbar-color, 15%);
-
-        > .scrollert-track
+        &:before
         {
-            background: fade(@track-color, 40%);
+            opacity: @opacity-scrollbarhover-scrollbar;
+        }
+
+        > .scrollert-track:before
+        {
+            opacity: @opacity-scrollbarhover-track;
         }
     }
 }
-
