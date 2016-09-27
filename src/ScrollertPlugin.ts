@@ -60,18 +60,17 @@ module Scrollert {
             this.offsetContentElmScrollbars();
             this.update();
 
+            // Relay scroll event on scrollbar/track to content and prevent outer scroll.
+            this.containerElm.on('wheel.' + this.options.eventNamespace, this.onScrollWheel);
+
+            /*
+             * @todo The keydown outer scroll prevention is not working yet.
+             */
             if(this.options.preventOuterScroll === true)
             {
-                // Prevent outer scroll while trackdrag the contentElm
-                this.contentElm.on('wheel.' + this.options.eventNamespace, this.onScrollWheel);
-
-                /*
-                 * @todo The keydown outer scroll prevention is not working yet.
-                 */
                 // Prevent outer scroll on key down
-                /*this.contentElm.on('keydown.' + this.options.eventNamespace, this.onKeyDown);*/
+                //this.contentElm.on('keydown.' + this.options.eventNamespace, this.onKeyDown);
             }
-
 
             //There could be a zoom change. Zoom is almost not indistinguishable from resize events. So on window resize, recalculate contentElm offet
             jQuery(window).on('resize.' + this.options.eventNamespace, this.offsetContentElmScrollbars.bind(this, true));
@@ -118,7 +117,23 @@ module Scrollert {
             for(let axis of this.options.axes)
             {
                 let delta = originalEvent['delta' + axis.toUpperCase()];
-                if(delta !== 0) this.preventOuterScroll(axis, (delta < 0) ? "heen" : "weer", event);
+
+                if(delta && this.scrollbarElms[axis]
+                    && (event.target === this.scrollbarElms[axis].scrollbar.get(0)
+                        || event.target === this.scrollbarElms[axis].track.get(0)
+                    )
+                )
+                {
+                    event.preventDefault();
+
+                    this.contentElm[axis ==='y' ? 'scrollTop' : 'scrollLeft'](
+                        this.getValue(this.contentElm, 'scrollPos', axis) + delta
+                    );
+                }
+                else if(this.options.preventOuterScroll === true)
+                {
+                    if (delta !== 0) this.preventOuterScroll(axis, (delta < 0) ? "heen" : "weer", event);
+                }
             }
         };
 

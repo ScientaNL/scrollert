@@ -1,11 +1,22 @@
 # Scrollert.js - a cross browser, OSX-like, light weight scrollbar
-[Scrollert.js](https://syslogicnl.github.io/scrollert/) is a jQuery plugin that implements **good-looking and uniform scrollbars** on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both **horizontal** and **vertical** scrollbars. 
+Scrollert is a jQuery plugin that implements good-looking and uniform scrollbars on all browsers, platforms and devices. It has a small memory and DOM footprint in the browser and is fully customizable through CSS. It creates both horizontal and vertical scrollbars. 
 
 Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with your Module loader of choice (SystemJS, RequireJS, Webpack etc) or by loading it globally with a `<script>` tag.
 
 Scrollert.js is written in Typescript and LESS.
 
 Checkout our [website](https://syslogicnl.github.io/scrollert/) and the [Github repository](https://github.com/SyslogicNL/scrollert)!
+
+# Table of contents
+- [Support and compatibility](#support-and-compatibility)
+- [Basic usage](#basic-usage)
+- [Advanced usage](#advanced-usage)
+ - [Default styling](#default-styling)
+ - [Custom styling](#custom-styling)
+ - [Options](#options)
+ - [Methods](#methods)
+ - [What if my content or container resizes?](#what-if-my-content-or-container-resizes-)
+- [FAQ](#faq)
 
 # Support and compatibility
 Scrollert.js is thoroughly field tested and is compatible with:
@@ -61,7 +72,7 @@ Specify to which axis or axes Scrollert.js must listen. Gives horizontal and/or 
 
 **Default:** `['x', 'y']`
 
-### preventOuterScroll
+### preventOuterScroll (experimental)
 Prevents scrolling of parent elements while hovering a scrollert pane.
 
 **Type:** boolean
@@ -78,7 +89,6 @@ The prefix which is prepended to all css-classes.
 
 ### eventNamespace
 The namespace in which all events are added. There is not really a use case to override this, but it is still possible though.
-
 
 **Type:** string
 
@@ -106,8 +116,18 @@ To destroy a Scrollert.js instance and revert all changes back to how it was bef
 jQuery('.scrollert').scrollert('destroy');
 ```
 
-## Events
-Not implemented yet.
+## What if my content or container resizes?
+It could be the case that your inner content or outer container resizes, due to things such as new content, a toggled view state or a window resize. Both inner and outer events can affect the size of the scrollbar. To detect changes in the content of a Scrollert-pane, you could use libraries such as:
+ - https://github.com/sdecima/javascript-detect-element-resize
+ - http://marcj.github.io/css-element-queries/
+
+You could fire the update method on Scrollert.js to update the scrollbar according to the changed reality.
+```javascript
+addResizeListener($('#content-inner'), function() {
+    jQuery('.scrollert').scrollert('update');
+});
+```
+
 
 # FAQ
 <sup>frequently asked and less frequently asked, but still answered:</sup>
@@ -115,10 +135,10 @@ Not implemented yet.
 You can customize the looks of Scrollert.js by styling it using CSS.
 
 ## Why must I specify a tabindex on the content element?
-Good question. I forgot while developing. There really is a reason for that. When it comes to mind, I will update this question
+Specifying a tabindex allows the end-user to use it's keyboard arrow keys to navigate while the pane is focussed.
 
 ## Why is this plugin created? There are already so many javascript scrollbar plugins
-Syslogic is the maker of Scienta. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs.
+Syslogic is the maker of Scienta. We want to give our customers the best scrolling experience. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs.
  
  # Build it yourself
  You don't have to stick to the shipped build. Why not build it yourself? You can run `npm install` and `gulp build` to create a customized build.
