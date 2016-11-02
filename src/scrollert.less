@@ -1,31 +1,5 @@
 .scrollert
 {
-    @opposite-offset: 20px;
-    @adjecent-offset: 4px;
-    @hover-offset: 3px;
-
-    @size: 8px;
-    @hover-size: 11px;
-    @outer-size: 20px;
-
-    @inner-size: 8px;
-
-    @min-track-size: 5%;
-    @xy-intersection-offset: 0;
-
-    @scrollbar-color: #707070;
-    @track-color: @scrollbar-color;
-
-    @opacity-default-scrollbar: 0;
-    @opacity-default-track: .40;
-    @opacity-contenthover-scrollbar: .25;
-    @opacity-contenthover-track: .5;
-    @opacity-scrollbarhover-scrollbar: .35;
-    @opacity-scrollbarhover-track: .75;
-
-    @opacity-transition-duration: 700ms;
-    @dimensions-transition-duration: 250ms;
-
     position: relative;
     overflow: hidden;
 
@@ -54,17 +28,21 @@
     {
         position: absolute;
         overflow: hidden;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
 
         &:before
         {
             content: '';
             position: absolute;
             overflow: hidden;
-
-            border-radius: @hover-size/2;
-
-            background: @scrollbar-color;
-            opacity: @opacity-default-scrollbar;
+            opacity: .5;
+            border-radius: 6px;
+            background:rgba(0,0,0,.05);
+            box-shadow: inset 2px 2px 6px rgba(0,0,0,.1);
+            transition: all .15s ease, opacity .5s ease;
         }
 
         > .scrollert-track
@@ -76,70 +54,51 @@
                 content: '';
                 position: absolute;
                 overflow: hidden;
-
-                border-radius: @hover-size/2;
-                background: @track-color;
-                opacity: @opacity-default-track;
-                }
+                border-radius: 6px;
+                transition: all .15s ease, opacity .5s ease;
+                background: rgba(0,0,0,.25);
+            }
         }
 
         &-y
         {
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: @outer-size;
+            left: auto;
+            width: 2em;
 
             > .scrollert-track
             {
-                top: 0;
-                height: 0;
-                width: @outer-size;
-                min-height: @min-track-size;
+                left: 0;
+                right: 0;
             }
 
             &:before, > .scrollert-track:before
             {
-                top: @opposite-offset;
-                bottom: @opposite-offset;
-
-                right: @adjecent-offset;
-                width: @size;
-
-                transition:
-                        opacity @opacity-transition-duration,
-                        width @dimensions-transition-duration,
-                        right @dimensions-transition-duration;
+                top: 1em;
+                bottom: 1em;
+                left: .75em;
+                right: .75em;
+                opacity: .75;
             }
         }
 
         &-x
         {
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: @outer-size;
+            top: auto;
+            height: 2em;
 
             > .scrollert-track
             {
-                left: 0;
-                width: 0;
-                height: @outer-size;
-                min-width: @min-track-size;
+                top: 0;
+                bottom: 0;
             }
 
-            &:before, > .scrollert-track:before
+            &:before,
+            > .scrollert-track:before
             {
-                left: @opposite-offset;
-                right: @opposite-offset;
-
-                top: @adjecent-offset;
-                height: @size;
-
-                transition:
-                        opacity @opacity-transition-duration,
-                        height @dimensions-transition-duration,
-                        bottom @dimensions-transition-duration;
+                left: 1em;
+                right: 1em;
+                top: .75em;
+                bottom: .75em;
             }
         }
     }
@@ -148,20 +107,29 @@
     &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
     > .scrollert-scrollbar-y:hover
     {
+        > .scrollert-track:before
+        {
+            background: rgba(0,0,0,.5) !important;
+        }
         &:before, > .scrollert-track:before
         {
-            right: @hover-offset;
-            width: @hover-size
+            left: .65em;
+            right: .65em;
         }
     }
 
     &.scrollert-trackdrag-x > .scrollert-scrollbar-x,
     > .scrollert-scrollbar-x:hover
     {
+
+        > .scrollert-track:before
+        {
+            background: rgba(0,0,0,.5) !important;
+        }
         &:before, > .scrollert-track:before
         {
-            bottom: @hover-offset;
-            height: @hover-size
+            top: .65em;
+            bottom: .65em;
         }
     }
 
@@ -170,12 +138,12 @@
     {
         > .scrollert-scrollbar-y
         {
-            bottom: @xy-intersection-offset;
+            bottom: 1em;
         }
 
         > .scrollert-scrollbar-x
         {
-            right: @xy-intersection-offset;
+            right: 1em;
         }
     }
 
@@ -186,38 +154,52 @@
         //On the content pane
         &:before
         {
-            opacity: @opacity-contenthover-scrollbar;
+            opacity: 1;
         }
 
         > .scrollert-track:before
         {
-            opacity: @opacity-contenthover-track;
-        }
-    }
-
-    > .scrollert-scrollbar:hover,
-    &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
-    &.scrollert-trackdrag-x > .scrollert-scrollbar-x
-    {
-        &:before
-        {
-            opacity: @opacity-scrollbarhover-scrollbar;
-        }
-
-        > .scrollert-track:before
-        {
-            opacity: @opacity-scrollbarhover-track;
+            opacity: 1;
         }
     }
 
     &.scrollert-white
     {
+        &.scrollert-trackdrag-x > .scrollert-scrollbar-x,
+        > .scrollert-scrollbar-x:hover
+        {
+            > .scrollert-track:before
+            {
+                background: rgba(255,255,255,.75) !important;
+            }
+        }
+
+        &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
+        > .scrollert-scrollbar-y:hover
+        {
+
+            > .scrollert-track:before
+            {
+                background: rgba(255,255,255,.75) !important;
+            }
+        }
+
         > .scrollert-scrollbar
         {
-            &:before, > .scrollert-track:before
+            &:before
             {
-                background: white;
+                background: rgba(255,255,255,.25);
             }
+            > .scrollert-track:before
+            {
+                background: rgba(255,255,255,.5);
+            }
+
+            &:hover > .scrollert-track:before
+            {
+                background: rgba(255,255,255,.75);
+            }
+
         }
     }
 }
