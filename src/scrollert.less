@@ -1,31 +1,31 @@
+@outer-size: 2em;
+
+@opposite-offset: .85em;
+@adjacent-offset: .75em;
+@xy-intersection-offset: 1em;
+
+@hover-offset: .65em;
+
+@border-radius: .5em;
+
+@min-track-size: 45px;
+
+@opacity-scrollbar: .5;
+@opacity-scrollbar-hover: 1;
+
+@dimensions-transition-duration: 150ms;
+@opacity-transition-duration: 500ms;
+
+@color-scrollbar: rgba(0,0,0,.05);
+@color-scrollbar-track: rgba(0,0,0,.25);
+@color-scrollbar-track-hover: rgba(0,0,0,.5);
+
+@color-white-scrollbar: rgba(255,255,255,.25);
+@color-white-scrollbar-track: rgba(255,255,255,.5);
+@color-white-scrollbar-track-hover: rgba(255,255,255,.75);
+
 .scrollert
 {
-    @opposite-offset: 20px;
-    @adjecent-offset: 4px;
-    @hover-offset: 3px;
-
-    @size: 8px;
-    @hover-size: 11px;
-    @outer-size: 20px;
-
-    @inner-size: 8px;
-
-    @min-track-size: 5%;
-    @xy-intersection-offset: 0;
-
-    @scrollbar-color: #707070;
-    @track-color: @scrollbar-color;
-
-    @opacity-default-scrollbar: 0;
-    @opacity-default-track: .40;
-    @opacity-contenthover-scrollbar: .25;
-    @opacity-contenthover-track: .5;
-    @opacity-scrollbarhover-scrollbar: .35;
-    @opacity-scrollbarhover-track: .75;
-
-    @opacity-transition-duration: 700ms;
-    @dimensions-transition-duration: 250ms;
-
     position: relative;
     overflow: hidden;
 
@@ -54,6 +54,10 @@
     {
         position: absolute;
         overflow: hidden;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
 
         &:before
         {
@@ -61,10 +65,12 @@
             position: absolute;
             overflow: hidden;
 
-            border-radius: @hover-size/2;
+            opacity: @opacity-scrollbar;
+            border-radius: @border-radius;
+            background: @color-scrollbar;
+            box-shadow: inset 2px 2px 6px rgba(0,0,0,.1);
 
-            background: @scrollbar-color;
-            opacity: @opacity-default-scrollbar;
+            transition: all @dimensions-transition-duration ease, opacity @opacity-transition-duration ease;
         }
 
         > .scrollert-track
@@ -77,24 +83,22 @@
                 position: absolute;
                 overflow: hidden;
 
-                border-radius: @hover-size/2;
-                background: @track-color;
-                opacity: @opacity-default-track;
-                }
+                border-radius: @border-radius;
+                background: @color-scrollbar-track;
+
+                transition: all @dimensions-transition-duration ease, opacity @opacity-transition-duration ease;
+            }
         }
 
         &-y
         {
-            top: 0;
-            bottom: 0;
-            right: 0;
+            left: auto;
             width: @outer-size;
 
             > .scrollert-track
             {
-                top: 0;
-                height: 0;
-                width: @outer-size;
+                left: 0;
+                right: 0;
                 min-height: @min-track-size;
             }
 
@@ -102,29 +106,22 @@
             {
                 top: @opposite-offset;
                 bottom: @opposite-offset;
-
-                right: @adjecent-offset;
-                width: @size;
-
-                transition:
-                        opacity @opacity-transition-duration,
-                        width @dimensions-transition-duration,
-                        right @dimensions-transition-duration;
+                left: @adjacent-offset;
+                right: @adjacent-offset;
+                opacity: .75;                
             }
         }
 
         &-x
         {
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: auto;
             height: @outer-size;
 
             > .scrollert-track
             {
-                left: 0;
-                width: 0;
-                height: @outer-size;
+                top: 0;
+                bottom: 0;
+
                 min-width: @min-track-size;
             }
 
@@ -132,14 +129,8 @@
             {
                 left: @opposite-offset;
                 right: @opposite-offset;
-
-                top: @adjecent-offset;
-                height: @size;
-
-                transition:
-                        opacity @opacity-transition-duration,
-                        height @dimensions-transition-duration,
-                        bottom @dimensions-transition-duration;
+                top: @adjacent-offset;
+                bottom: @adjacent-offset;
             }
         }
     }
@@ -148,20 +139,30 @@
     &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
     > .scrollert-scrollbar-y:hover
     {
+        > .scrollert-track:before
+        {
+            background: @color-scrollbar-track-hover;
+        }
+
         &:before, > .scrollert-track:before
         {
+            left: @hover-offset;
             right: @hover-offset;
-            width: @hover-size
         }
     }
 
     &.scrollert-trackdrag-x > .scrollert-scrollbar-x,
     > .scrollert-scrollbar-x:hover
     {
+        > .scrollert-track:before
+        {
+            background: @color-scrollbar-track-hover;
+        }
+
         &:before, > .scrollert-track:before
         {
+            top: @hover-offset;
             bottom: @hover-offset;
-            height: @hover-size
         }
     }
 
@@ -186,38 +187,62 @@
         //On the content pane
         &:before
         {
-            opacity: @opacity-contenthover-scrollbar;
+            opacity: @opacity-scrollbar-hover;
         }
 
         > .scrollert-track:before
         {
-            opacity: @opacity-contenthover-track;
+            opacity: @opacity-scrollbar-hover;
         }
     }
 
-    > .scrollert-scrollbar:hover,
-    &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
-    &.scrollert-trackdrag-x > .scrollert-scrollbar-x
+    //Disable pointer events while dragging the track. Makes track drag possible on content containing an iframe
+    &.scrollert-trackdrag-x,
+    &.scrollert-trackdrag-y
     {
-        &:before
+        > .scrollert-content
         {
-            opacity: @opacity-scrollbarhover-scrollbar;
-        }
-
-        > .scrollert-track:before
-        {
-            opacity: @opacity-scrollbarhover-track;
+            pointer-events: none;
         }
     }
 
     &.scrollert-white
     {
+        &.scrollert-trackdrag-x > .scrollert-scrollbar-x,
+        > .scrollert-scrollbar-x:hover
+        {
+            > .scrollert-track:before
+            {
+                background: @color-white-scrollbar-track-hover;
+            }
+        }
+
+        &.scrollert-trackdrag-y > .scrollert-scrollbar-y,
+        > .scrollert-scrollbar-y:hover
+        {
+            > .scrollert-track:before
+            {
+                background: @color-white-scrollbar-track-hover;
+            }
+        }
+
         > .scrollert-scrollbar
         {
-            &:before, > .scrollert-track:before
+            &:before
             {
-                background: white;
+                background: @color-white-scrollbar;
             }
+
+            > .scrollert-track:before
+            {
+                background: @color-white-scrollbar-track;
+            }
+
+            &:hover > .scrollert-track:before
+            {
+                background: @color-white-scrollbar-track-hover;
+            }
+
         }
     }
 }
