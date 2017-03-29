@@ -320,7 +320,7 @@ module Scrollert {
                 scrollbarDimension = this.getValue(scrollbarElm, 'size', axis);
     
             trackElm.css(axis === 'y' ? 'top' : 'left',
-                (scrollbarDimension - trackDimension) * relTrackPos
+                (scrollbarDimension - trackDimension) * Math.min(relTrackPos, 1)
             );
         }
 
