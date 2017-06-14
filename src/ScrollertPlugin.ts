@@ -285,9 +285,9 @@ module Scrollert {
 
         private hasScroll(axis:AxisType):boolean
         {
-            let contentSize = this.getValue(this.contentElm, 'size', axis),
-                contentScrollSize = this.getValue(this.contentElm, 'scrollSize', axis);
-    
+            let contentSize = Math.round(this.getValue(this.contentElm, 'size', axis)),
+                contentScrollSize = Math.round(this.getValue(this.contentElm, 'scrollSize', axis));
+
             return contentSize < contentScrollSize;
         }
 
