@@ -20,6 +20,7 @@ module Scrollert {
         cssPrefix?:string;
         eventNamespace?:string;
         contentSelector?:string;
+		useNativeFloatingScrollbars?:boolean;
     }
 
     export class Plugin
@@ -31,7 +32,8 @@ module Scrollert {
             preventOuterScroll: false,
             cssPrefix: 'scrollert',
             eventNamespace: 'scrollert',
-            contentSelector: null
+            contentSelector: null,
+			useNativeFloatingScrollbars: true
         };
 
         private contentElm:JQuery;
@@ -57,23 +59,36 @@ module Scrollert {
             this.options.eventNamespace = this.options.eventNamespace + ++Plugin.eventNamespaceId;
             this.contentElm = this.containerElm.children(this.options.contentSelector || '.' + this.options.cssPrefix +'-content');
 
-            this.offsetContentElmScrollbars();
-            this.update();
-
-            // Relay scroll event on scrollbar/track to content and prevent outer scroll.
-            this.containerElm.on('wheel.' + this.options.eventNamespace, this.onScrollWheel);
-
-            /*
-             * @todo The keydown outer scroll prevention is not working yet.
-             */
-            if(this.options.preventOuterScroll === true)
+			let browserHasFloatingScrollbars = false;
+			if(this.options.useNativeFloatingScrollbars === true)
             {
-                // Prevent outer scroll on key down
-                //this.contentElm.on('keydown.' + this.options.eventNamespace, this.onKeyDown);
-            }
+				browserHasFloatingScrollbars = ScrollbarDimensions.calculate([{ tagName: "div", classes: "" }]) <= 0;
+			}
 
-            //There could be a zoom change. Zoom is almost not indistinguishable from resize events. So on window resize, recalculate contentElm offet
-            jQuery(window).on('resize.' + this.options.eventNamespace, this.offsetContentElmScrollbars.bind(this, true));
+			if(this.options.useNativeFloatingScrollbars === false || browserHasFloatingScrollbars === false)
+            {
+				this.offsetContentElmScrollbars();
+				this.update();
+
+				// Relay scroll event on scrollbar/track to content and prevent outer scroll.
+				this.containerElm.on('wheel.' + this.options.eventNamespace, this.onScrollWheel);
+
+				/*
+				 * @todo The keydown outer scroll prevention is not working yet.
+				 */
+				if(this.options.preventOuterScroll === true)
+				{
+					// Prevent outer scroll on key down
+					//this.contentElm.on('keydown.' + this.options.eventNamespace, this.onKeyDown);
+				}
+
+				//There could be a zoom change. Zoom is almost not indistinguishable from resize events. So on window resize, recalculate contentElm offet
+				jQuery(window).on('resize.' + this.options.eventNamespace, this.offsetContentElmScrollbars.bind(this, true));
+            }
+            else
+            {
+				this.contentElm.addClass(`${this.options.cssPrefix}-disabled`);
+            }
         }
 
         public update()

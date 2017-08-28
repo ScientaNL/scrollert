@@ -38,15 +38,26 @@
         right: 0;
         bottom: 0;
         left: 0;
+        -webkit-overflow-scrolling: touch;
 
         &:focus
         {
             outline: none;
         }
 
-        &::-webkit-scrollbar
+        &:not(.scrollert-disabled)
         {
-            display: none;
+            &::-webkit-scrollbar
+            {
+                display: none;
+            }
+
+            -ms-overflow-style: none;
+        }
+
+        &.scrollert-disabled
+        {
+            overflow: auto;
         }
     }
 
@@ -108,7 +119,7 @@
                 bottom: @opposite-offset;
                 left: @adjacent-offset;
                 right: @adjacent-offset;
-                opacity: .75;                
+                opacity: .75;
             }
         }
 
