@@ -52,6 +52,8 @@ module Scrollert {
 
         private originalCssValues:{ [id: string] : string; };
 
+        private browserHasFloatingScrollbars:boolean = false;
+
         constructor(private containerElm:JQuery, options?:PluginOptions)
         {
             this.options = jQuery.extend( {}, this.options, options );
@@ -59,13 +61,12 @@ module Scrollert {
             this.options.eventNamespace = this.options.eventNamespace + ++Plugin.eventNamespaceId;
             this.contentElm = this.containerElm.children(this.options.contentSelector || '.' + this.options.cssPrefix +'-content');
 
-            let browserHasFloatingScrollbars = false;
             if(this.options.useNativeFloatingScrollbars === true)
             {
-                browserHasFloatingScrollbars = ScrollbarDimensions.calculate([{ tagName: "div", classes: "" }]) <= 0;
+                this.browserHasFloatingScrollbars = ScrollbarDimensions.calculate([{ tagName: "div", classes: "" }]) <= 0;
             }
 
-            if(this.options.useNativeFloatingScrollbars === false || browserHasFloatingScrollbars === false)
+            if(this.options.useNativeFloatingScrollbars === false || this.browserHasFloatingScrollbars === false)
             {
                 this.offsetContentElmScrollbars();
                 this.update();
@@ -93,19 +94,22 @@ module Scrollert {
 
         public update()
         {
-            let repositionTrack = false;
+			if(this.options.useNativeFloatingScrollbars === false || this.browserHasFloatingScrollbars === false)
+			{
+				let repositionTrack = false;
 
-            for(let axis of this.options.axes)
-            {
-                this.updateAxis(axis);
-                if(this.getValue(this.contentElm, "scrollPos", axis) !== 0) repositionTrack = true;
-            }
+				for (let axis of this.options.axes)
+				{
+					this.updateAxis(axis);
+					if (this.getValue(this.contentElm, "scrollPos", axis) !== 0) repositionTrack = true;
+				}
 
-            //If we start on a scroll position
-            if(repositionTrack === true)
-            {
-                this.contentElm.trigger('scroll.' + this.options.eventNamespace);
-            }
+				//If we start on a scroll position
+				if (repositionTrack === true)
+				{
+					this.contentElm.trigger('scroll.' + this.options.eventNamespace);
+				}
+			}
         }
 
         private addScrollbar(axis:AxisType, containerElm:JQuery):ScrollbarContainer
