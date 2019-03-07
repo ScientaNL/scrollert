@@ -5,7 +5,7 @@ Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with 
 
 Scrollert.js is written in Typescript and LESS.
 
-Checkout our [website](https://scientanl.github.io/scrollert/) and the [Github repository](https://github.com/SyslogicNL/scrollert)!
+Checkout our [website](https://scientanl.github.io/scrollert/) and the [Github repository](https://github.com/scientanl/scrollert)!
 
 # Table of contents
 - [Support and compatibility](#support-and-compatibility)
@@ -138,7 +138,7 @@ You can customize the looks of Scrollert.js by styling it using CSS.
 Specifying a tabindex allows the end-user to use it's keyboard arrow keys to navigate while the pane is focussed.
 
 ## Why is this plugin created? There are already so many javascript scrollbar plugins
-Syslogic is the maker of Scienta. We want to give our customers the best scrolling experience. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs.
+We are Scienta. We want to give our customers the best scrolling experience. The majority of our customers uses Windows. There was only one problem. Although we like windows, we are not quite fond of the default Windows scrollbar, especially not when used in an inline panel. To provide our customers with a beautiful and uniform scrolling experience, we searched for a scrollbar solution. We couldn't find one that suited our needs. So we decided to build one ourselfs.
  
  # Build it yourself
  You don't have to stick to the shipped build. Why not build it yourself? You can run `npm install` and `gulp build` to create a customized build.
