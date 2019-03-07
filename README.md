@@ -5,7 +5,7 @@ Scrollert.js can be loaded as a [UMD module](https://github.com/umdjs/umd) with 
 
 Scrollert.js is written in Typescript and LESS.
 
-Checkout our [website](https://syslogicnl.github.io/scrollert/) and the [Github repository](https://github.com/SyslogicNL/scrollert)!
+Checkout our [website](https://scientanl.github.io/scrollert/) and the [Github repository](https://github.com/SyslogicNL/scrollert)!
 
 # Table of contents
 - [Support and compatibility](#support-and-compatibility)
